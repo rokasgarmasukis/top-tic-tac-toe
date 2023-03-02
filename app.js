@@ -96,7 +96,6 @@ function GameController(
   const playRound = (cellnum) => {
     if (board.getCells()[cellnum] === '') {
       board.getCells()[cellnum] = activePlayer.sign;
-      switchActivePlayer();
       screen.displayBoard(board.getCells(), playRound);
     }
     if (isWin()) {
@@ -108,6 +107,7 @@ function GameController(
       screen.displayMessage(`Draw!`)
       screen.disableBoard();
     }
+    switchActivePlayer();
   };
 
   const isWin = () => {
@@ -133,6 +133,7 @@ function GameController(
 
   const resetGame = () => {
     board.resetCells()
+    activePlayer = players[0]
     screen.enableBoard()
     screen.displayMessage('')
     screen.displayBoard(board.getCells(), playRound);
