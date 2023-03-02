@@ -28,3 +28,7 @@ body {
   caret-color: transparent;
   cursor: default;
 }
+
+.disabled {
+  pointer-events: none;
+}
