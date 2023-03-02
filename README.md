@@ -1,6 +1,7 @@
 #Project for The Odin Project
 
 ##Skills to learn
-- Code organization
-- Factory pattern
-- Module pattern
+- Better code organization avoiding global state
+- Decoupling UI from game logic
+- Factory and module patterns
+- Adding and removing elements to DOM
