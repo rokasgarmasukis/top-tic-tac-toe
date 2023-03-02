@@ -5,13 +5,20 @@
 function GameBoard() {
   const cells = [];
 
+
   for (let i = 0; i < 9; i++) {
     cells[i] = '';
   }
 
+  const resetCells = () => {
+    for (let i = 0; i < 9; i++) {
+      cells[i] = '';
+    }
+  }
+
   const getCells = () => cells;
 
-  return { getCells };
+  return { getCells, resetCells };
 }
 
 //
@@ -50,12 +57,12 @@ function ScreenController() {
   }
   
 
-  const displayResult = (player) => {
+  const displayMessage = (message) => {
     const info = document.querySelector('.info')
-    info.innerText = `${player.name} has won!`
+    info.innerText = message
   }
 
-  return { displayBoard, disableBoard, enableBoard, displayResult };
+  return { displayBoard, disableBoard, enableBoard, displayMessage };
 }
 
 //
@@ -92,13 +99,18 @@ function GameController(
       switchActivePlayer();
       screen.displayBoard(board.getCells(), playRound);
     }
-    if (checkForWin() === true) {
-      screen.displayResult(activePlayer)
+    if (isWin()) {
+      screen.displayMessage(`${activePlayer.name} has won!`)
+      screen.disableBoard();
+      return;
+    }
+    if (isDraw()) {
+      screen.displayMessage(`Draw!`)
       screen.disableBoard();
     }
   };
 
-  const checkForWin = () => {
+  const isWin = () => {
     const cells = board.getCells();
     if (cells[0] === cells[1] && cells[1] === cells[2] && cells[2] !== '') return true;
     if (cells[3] === cells[4] && cells[4] === cells[5] && cells[5] !== '') return true;
@@ -111,8 +123,26 @@ function GameController(
     return false;
   }
 
-  const init = () => {
+  const isDraw = () => {
+    let allCellsMarked = true;
+    for (cell of board.getCells()) {
+      if (cell === '') allCellsMarked = false;
+    }
+    return allCellsMarked
+  }
+
+  const resetGame = () => {
+    board.resetCells()
+    screen.enableBoard()
+    screen.displayMessage('')
     screen.displayBoard(board.getCells(), playRound);
+  }
+
+  const init = () => {
+    const reset = document.getElementById('reset')
+    reset.addEventListener('click', resetGame)
+    screen.displayBoard(board.getCells(), playRound);
+
   };
 
   return { init };

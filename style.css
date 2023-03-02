@@ -8,6 +8,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
 }
 
 .board {
@@ -31,4 +32,20 @@ body {
 
 .disabled {
   pointer-events: none;
+}
+
+.info {
+  font-size: 2rem;
+}
+
+button {
+  font-size: large;
+  padding: 5px 20px;
+  border: 1px solid rgb(255, 95, 95);
+  background: rgb(255, 221, 227);
+  border-radius: 3px;
+}
+
+button:hover {
+  background: rgb(248, 184, 196);
 }
